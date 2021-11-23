@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+        body {
+            margin: 2rem;
+        }
+    </style>
+    <title>Amazon URL Shortener</title>
+  </head>
+  <body>
+    <label for="basic-url" class="form-label">短縮したいAmazon商品URLを入力してください。</label>
+    <div class="input-group mb-3">
+      <input
+        type="text"
+        class="form-control"
+        id="input-url"
+        aria-describedby="basic-addon3"
+      />
+      <button class="btn btn-outline-secondary" type="button" id="shortener-btn">短縮してコピー</button>
+    </div>
+    </div>
+    <div class="alert alert-success visually-hidden" role="alert" id="shortener-result">
+    </div>
+    <script>
+        function urlShorten()
+        {
+            const inputUrl = document.getElementById('input-url').value;
+            const fields = inputUrl.split('/');
+            let shortUrl = '';
+            for (let field of fields) {
+                shortUrl += (field.indexOf("%") + field.indexOf("=")) === -2 ? field + '/' : '';
+            }
+            const msg = document.getElementById('shortener-result');
+            copyToClipboard(shortUrl)
+            .then(result => msg.innerHTML = result);
+            msg.classList.remove('visually-hidden');
+        }
+
+        async function copyToClipboard(text) {
+            try {
+                await navigator.clipboard.writeText(text)
+                return '<strong>' + text + '</strong>をクリップボードにコピーしました。';
+            } catch (error) {
+                return '<strong>' + text + '</strong>をコピーできませんでした。';
+            }
+        }
+
+        document.getElementById('shortener-btn').addEventListener('click', () => {
+            urlShorten();
+        });
+    </script>
+  </body>
+</html>
