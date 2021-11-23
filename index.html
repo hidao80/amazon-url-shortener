@@ -46,7 +46,7 @@
               // shortUrl += (field.indexOf("%") + field.indexOf("=")) === -2 ? field + '/' : '';
               length = field.indexOf("?");
               non_param = length > 0 ? field.substring(0, length) : field;
-              shortUrl += (non_param.indexOf("%") + non_param.indexOf("="))=== -2 ? non_param + '/' : '';
+              shortUrl += non_param.length > 0 && (non_param.indexOf("%") + non_param.indexOf("="))=== -2 ? non_param + '/' : '';
             }
             const msg = document.getElementById('shortener-result');
             copyToClipboard(shortUrl)
