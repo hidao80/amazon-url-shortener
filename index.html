@@ -43,7 +43,10 @@
             const fields = inputUrl.split('/');
             let shortUrl = '';
             for (let field of fields) {
-                shortUrl += (field.indexOf("%") + field.indexOf("=")) === -2 ? field + '/' : '';
+              // shortUrl += (field.indexOf("%") + field.indexOf("=")) === -2 ? field + '/' : '';
+              length = field.indexOf("?");
+              non_param = length > 0 ? field.substring(0, length) : field;
+              shortUrl += non_param.indexOf(["%", "="]) === -1 ? non_param + '/' : '';
             }
             const msg = document.getElementById('shortener-result');
             copyToClipboard(shortUrl)
