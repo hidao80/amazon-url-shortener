@@ -1,4 +1,4 @@
-# Amazon URL Shortener
+# Amazon URL短縮Webアプリ
 
 [README (English)](README.md)
 
@@ -6,7 +6,7 @@
 [![VanillaJS](https://img.shields.io/badge/Framework-VanillaJS-blue.svg)](https://nodejs.org/ja/)
 ![hidao quality](https://img.shields.io/badge/hidao-quality-orange.svg)
 
-A web application that shortens Amazon product URLs without using 特別なドメインを使用せずにAmazonの商品URLを短縮するWebアプリケーションです。
+特別なドメインを使用せずにAmazonの商品URLを短縮するWebアプリケーションです。
 
 ![](img/ss01_ja.png)
 
