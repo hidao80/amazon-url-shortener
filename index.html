@@ -47,17 +47,17 @@
 
         // Multilingual dictionary object
         const __ = {
-            "ja": {
-                "Enter the Amazon product URL you want to shorten.": "短縮したいAmazon商品URLを入力してください。",
-                "Shorten and copy": "短縮してコピー",
-                "Copied the URL to the clipboard; ": "URLをクリップボードにコピーしました： ",
-                "Could not copy the URL; ": "URLをコピーできませんでした："
-            },
             "en": {
-                "Enter the Amazon product URL you want to shorten.": "Enter the Amazon product URL you want to shorten.",
+                "Enter the Amazon product URL or Wish List URL you wish to shorten.": "Enter the Amazon product URL or Wish List URL you wish to shorten.",
                 "Shorten and copy": "Shorten and copy",
                 "Copied the URL to the clipboard; ": "Copied the URL to the clipboard; ",
                 "Could not copy the URL; ": "Could not copy the URL; "
+            },
+            "ja": {
+                "Enter the Amazon product URL or Wish List URL you wish to shorten.": "短縮したいAmazon商品URLまたはほしいものリストURLを入力してください。",
+                "Shorten and copy": "短縮してコピー",
+                "Copied the URL to the clipboard; ": "URLをクリップボードにコピーしました： ",
+                "Could not copy the URL; ": "URLをコピーできませんでした："
             }
         };
 
@@ -76,7 +76,11 @@
                 shortUrl += non_param.length > 0 && (non_param.indexOf('%') + non_param.indexOf('=')) === -2 ? non_param + '/' : '';
             }
 
+            // for product url
             shortUrl = shortUrl.replace(/^https:\/(www\.)?/, 'https://').replace(/gp\/product/, 'dp');
+
+            // for wishlist url
+            shortUrl = shortUrl.replace(/(hz|ls)\//g, '');
 
             const msg = document.getElementById('shortener-result');
             copyToClipboard(shortUrl)
@@ -99,7 +103,7 @@
 
         // i18n
         document.getElementById('shortener-btn').innerHTML = __[language]['Shorten and copy'] + '&nbsp;<i class="fas fa-copy"></i>';
-        document.querySelector('.form-label').innerHTML = __[language]['Enter the Amazon product URL you want to shorten.'];
+        document.querySelector('.form-label').innerHTML = __[language]['Enter the Amazon product URL or Wish List URL you wish to shorten.'];
     </script>
 </body>
 
