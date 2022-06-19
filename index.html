@@ -82,7 +82,7 @@
                     let position = field.indexOf('U=');
                     if (position > 0) {
                         targetUrl = decodeURIComponent(field.substring(position + 'U='.length));
-                        shortUrl = targetUrl.substring(0, targetUrl.indexOf('?') - 1);
+                        shortUrl = targetUrl.substring(0, targetUrl.indexOf('?'));
                         break;
                     }
                 }
