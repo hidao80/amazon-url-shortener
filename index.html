@@ -35,8 +35,9 @@
         <input type="text" class="form-control" id="input-url" aria-describedby="basic-addon3" />
         <button class="btn btn-outline-secondary" type="button" id="shortener-btn">Shorten and copy</button>
     </div>
+    <div class="alert alert-success visually-hidden" role="alert" id="shortener-success">
     </div>
-    <div class="alert alert-success visually-hidden" role="alert" id="shortener-result">
+    <div class="alert alert-danger visually-hidden" role="alert" id="shortener-danger">
     </div>
     <script>
         // Get language settings
@@ -48,16 +49,18 @@
         // Multilingual dictionary object
         const __ = {
             "en": {
-                "Enter the Amazon product URL or Wish List URL you wish to shorten.": "Enter the Amazon product URL or Wish List URL you wish to shorten.",
+                "Enter the Amazon URL you would like to shorten": "Enter the Amazon URL you would like to shorten:<ul><li>Product</li><li>Wishlist</li><li>Gift Voucher</li></ul>",
                 "Shorten and copy": "Shorten and copy",
                 "Copied the URL to the clipboard; ": "Copied the URL to the clipboard; ",
-                "Could not copy the URL; ": "Could not copy the URL; "
+                "Could not copy the URL; ": "Could not copy the URL; ",
+                "URL is invalid": "URL is invalid."
             },
             "ja": {
-                "Enter the Amazon product URL or Wish List URL you wish to shorten.": "短縮したいAmazon商品URLまたはほしいものリストURLを入力してください。",
+                "Enter the Amazon URL you would like to shorten": "短縮したいAmazonのURLを入力してください：<ul><li>商品</li><li>ほしいものリスト</li><li>ギフト券</li></ul>",
                 "Shorten and copy": "短縮してコピー",
                 "Copied the URL to the clipboard; ": "URLをクリップボードにコピーしました： ",
-                "Could not copy the URL; ": "URLをコピーできませんでした："
+                "Could not copy the URL; ": "URLをコピーできませんでした：",
+                "URL is invalid": "URLが正しくありません。"
             }
         };
 
@@ -70,22 +73,54 @@
             const inputUrl = document.getElementById('input-url').value;
             const fields = inputUrl.split('/');
             let shortUrl = '';
-            for (let field of fields) {
-                length = field.indexOf('?');
-                non_param = length > 0 ? field.substring(0, length) : field;
-                shortUrl += non_param.length > 0 && (non_param.indexOf('%') + non_param.indexOf('=')) === -2 ? non_param + '/' : '';
+
+            if (inputUrl.includes('r.html?')) {
+                // for gift voucher url
+                shortUrl = undefined;
+
+                for (let field of fields) {
+                    let position = field.indexOf('U=');
+                    if (position > 0) {
+                        targetUrl = decodeURIComponent(field.substring(position + 'U='.length));
+                        shortUrl = targetUrl.substring(0, targetUrl.indexOf('?') - 1);
+                        break;
+                    }
+                }
+            } else {
+                for (let field of fields) {
+                    length = field.indexOf('?');
+                    non_param = length > 0 ? field.substring(0, length) : field;
+                    shortUrl += non_param.length > 0 && (non_param.indexOf('%') + non_param.indexOf('=')) === -2 ? non_param + '/' : '';
+                    if (field == '') {
+                        // add "/" for "//"
+                        shortUrl += '/';
+                    }
+                }
+
+                // for product url
+                shortUrl = shortUrl.replace(/gp\/product/, 'dp');
+
+                // for wishlist url
+                shortUrl = shortUrl.replace(/(hz|ls)\//g, '');
             }
 
-            // for product url
-            shortUrl = shortUrl.replace(/^https:\/(www\.)?/, 'https://').replace(/gp\/product/, 'dp');
+            console.log(shortUrl);
+            shortUrl = shortUrl.replace(/^https:\/\/(www\.)?/, 'https://');
+            console.log(shortUrl);
 
-            // for wishlist url
-            shortUrl = shortUrl.replace(/(hz|ls)\//g, '');
+            // show short url message
+            const msgSuccess = document.getElementById('shortener-success');
+            const msgAlert = document.getElementById('shortener-danger');
+            msgSuccess.classList.add('visually-hidden');
+            msgAlert.classList.add('visually-hidden');
 
-            const msg = document.getElementById('shortener-result');
-            copyToClipboard(shortUrl)
-                .then(result => msg.innerHTML = result);
-            msg.classList.remove('visually-hidden');
+            if (shortUrl) {
+                copyToClipboard(shortUrl)
+                    .then(result => msgSuccess.innerHTML = result);
+                msgSuccess.classList.remove('visually-hidden');
+            } else {
+                msgAlert.classList.remove('visually-hidden');
+            }
         }
 
         async function copyToClipboard(text) {
@@ -97,13 +132,12 @@
             }
         }
 
-        document.getElementById('shortener-btn').addEventListener('click', () => {
-            urlShorten();
-        });
+        document.getElementById('shortener-btn').addEventListener('click', urlShorten);
 
-        // i18n
+        // Mutilingalization
         document.getElementById('shortener-btn').innerHTML = __[language]['Shorten and copy'] + '&nbsp;<i class="fas fa-copy"></i>';
-        document.querySelector('.form-label').innerHTML = __[language]['Enter the Amazon product URL or Wish List URL you wish to shorten.'];
+        document.querySelector('.form-label').innerHTML = __[language]['Enter the Amazon URL you would like to shorten'];
+        document.getElementById('shortener-danger').innerHTML = __[language]['URL is invalid'];
     </script>
 </body>
 
