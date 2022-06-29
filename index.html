@@ -76,34 +76,16 @@
 
             if (inputUrl.includes('r.html?')) {
                 // for gift voucher url
-                shortUrl = undefined;
-
-                for (let field of fields) {
-                    let position = field.indexOf('U=');
-                    if (position > 0) {
-                        targetUrl = decodeURIComponent(field.substring(position + 'U='.length));
-                        shortUrl = targetUrl.substring(0, targetUrl.indexOf('?'));
-                        break;
-                    }
-                }
+                shortUrl = decodeURIComponent(inputUrl).split('&').filter(field => field.match(/U=/) !== null)[0];
+                shortUrl = shortUrl.slice('U='.length, shortUrl.indexOf('?'));
             } else {
-                for (let field of fields) {
-                    length = field.indexOf('?');
-                    non_param = length > 0 ? field.substring(0, length) : field;
-                    shortUrl += non_param.length > 0 && (non_param.indexOf('%') + non_param.indexOf('=')) === -2 ? non_param + '/' : '';
-                    if (field == '') {
-                        // add "/" for "//"
-                        shortUrl += '/';
-                    }
-                }
+                shortUrl = fields.filter(field => field.match(/[%=]/) === null).join('/');
 
                 // for product url
                 shortUrl = shortUrl.replace(/gp\/product/, 'dp');
 
                 // for wishlist url
                 shortUrl = shortUrl.replace(/(hz|ls)\//g, '');
-
-                
             }
 
             console.log(shortUrl);
