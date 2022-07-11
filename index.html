@@ -41,10 +41,10 @@
     </div>
     <script>
         // Get language settings
-        let language = (window.navigator.languages && window.navigator.languages[0]) ||
+        let language = ((window.navigator.languages && window.navigator.languages[0]) ||
             window.navigator.language ||
             window.navigator.userLanguage ||
-            window.navigator.browserLanguage;
+            window.navigator.browserLanguage).slice(0, 2);
 
         // Multilingual dictionary object
         const __ = {
