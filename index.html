@@ -5,7 +5,19 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="img/logo.svg">
+    <title>Amazon URL Shortener</title>
+
+    <link rel="apple-touch-icon" href="./img/logo.svn">
+    <link rel="icon" href="./img/logo.svg">
+
+    <meta property="og:description" content="An account-free web application that shortens Amazon product URLs without using a special domain.">
+    <meta property="og:title" content="Amazon URL Shortener">
+    <meta property="og:image" content="https://hidao80.github.io/amazon-url-shortener/img/logo.svg">
+    <meta property="og:image:width" content="600">
+    <meta property="og:image:height" content="315">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://hidao80.github.io/amazon-url-shortener/">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
@@ -14,115 +26,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <style>
-        body {
-            margin: 2rem;
-        }
-    </style>
-    <title>Amazon URL Shortener</title>
-    <meta property="og:description" content="An account-free web application that shortens Amazon product URLs without using a special domain.">
-    <meta property="og:title" content="Amazon URL Shortener">
-    <meta property="og:image" content="https://hidao80.github.io/amazon-url-shortener/img/logo.svg">
-    <meta property="og:image:width" content="600">
-    <meta property="og:image:height" content="315">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://hidao80.github.io/amazon-url-shortener/">
+    <link href="./css/style.css" rel="stylesheet" />
+    <script src="./js/main.js" type="module"></script>
 </head>
 
 <body>
-    <label for="basic-url" class="form-label">Enter the Amazon product URL you want to shorten.</label>
+    <label for="basic-url"  class="form-label" data-translate="Enter the Amazon URL you would like to shorten">Enter the Amazon product URL you want to shorten.</label>
     <div class="input-group mb-3">
         <input type="text" class="form-control" id="input-url" aria-describedby="basic-addon3" />
-        <button class="btn btn-outline-secondary" type="button" id="shortener-btn">Shorten and copy</button>
+        <button class="btn btn-outline-secondary" type="button" id="shortener-btn" data-translate="Shorten and copy">Shorten and copy</button>
     </div>
-    <div class="alert alert-success visually-hidden" role="alert" id="shortener-success">
+    <div class="alert alert-success visually-hidden" role="alert" id="shortener-success" data-translate="Shorten and copy">
     </div>
-    <div class="alert alert-danger visually-hidden" role="alert" id="shortener-danger">
+    <div class="alert alert-danger visually-hidden" role="alert" id="shortener-danger" data-translate="URL is invalid">
     </div>
-    <script>
-        // Get language settings
-        let language = (window.navigator.languages && window.navigator.languages[0]) ||
-            window.navigator.language ||
-            window.navigator.userLanguage ||
-            window.navigator.browserLanguage;
-
-        // Multilingual dictionary object
-        const __ = {
-            "en": {
-                "Enter the Amazon URL you would like to shorten": "Enter the Amazon URL you would like to shorten:<ul><li>Product</li><li>Wishlist</li><li>Gift Voucher</li></ul>",
-                "Shorten and copy": "Shorten and copy",
-                "Copied the URL to the clipboard; ": "Copied the URL to the clipboard; ",
-                "Could not copy the URL; ": "Could not copy the URL; ",
-                "URL is invalid": "URL is invalid."
-            },
-            "ja": {
-                "Enter the Amazon URL you would like to shorten": "短縮したいAmazonのURLを入力してください：<ul><li>商品</li><li>ほしいものリスト</li><li>ギフト券</li></ul>",
-                "Shorten and copy": "短縮してコピー",
-                "Copied the URL to the clipboard; ": "URLをクリップボードにコピーしました： ",
-                "Could not copy the URL; ": "URLをコピーできませんでした：",
-                "URL is invalid": "URLが正しくありません。"
-            }
-        };
-
-        // Show English for undefined languages
-        if (__[language] === undefined) {
-            language = "en";
-        }
-
-        function urlShorten() {
-            const inputUrl = document.getElementById('input-url').value;
-            const fields = inputUrl.split('/');
-            let shortUrl = '';
-
-            if (inputUrl.includes('r.html?')) {
-                // for gift voucher url
-                shortUrl = decodeURIComponent(inputUrl).split('&').filter(field => field.match(/U=/) !== null)[0];
-                shortUrl = shortUrl.slice('U='.length, shortUrl.indexOf('?'));
-            } else {
-                shortUrl = fields.filter(field => field.match(/[%=]/) === null).join('/');
-
-                // for product url
-                shortUrl = shortUrl.replace(/gp\/product/, 'dp');
-
-                // for wishlist url
-                shortUrl = shortUrl.replace(/(hz|ls)\//g, '');
-            }
-
-            console.log(shortUrl);
-            shortUrl = shortUrl.replace(/^https:\/\/(www\.)?/, 'https://');
-            console.log(shortUrl);
-
-            // show short url message
-            const msgSuccess = document.getElementById('shortener-success');
-            const msgAlert = document.getElementById('shortener-danger');
-            msgSuccess.classList.add('visually-hidden');
-            msgAlert.classList.add('visually-hidden');
-
-            if (shortUrl) {
-                copyToClipboard(shortUrl)
-                    .then(result => msgSuccess.innerHTML = result);
-                msgSuccess.classList.remove('visually-hidden');
-            } else {
-                msgAlert.classList.remove('visually-hidden');
-            }
-        }
-
-        async function copyToClipboard(text) {
-            try {
-                await navigator.clipboard.writeText(text)
-                return __[language]['Copied the URL to the clipboard; '] + '<strong>' + text + '</strong>';
-            } catch (error) {
-                return __[language]['Could not copy the URL; '] + '<strong>' + text + '</strong>';
-            }
-        }
-
-        document.getElementById('shortener-btn').addEventListener('click', urlShorten);
-
-        // Mutilingalization
-        document.getElementById('shortener-btn').innerHTML = __[language]['Shorten and copy'] + '&nbsp;<i class="fas fa-copy"></i>';
-        document.querySelector('.form-label').innerHTML = __[language]['Enter the Amazon URL you would like to shorten'];
-        document.getElementById('shortener-danger').innerHTML = __[language]['URL is invalid'];
-    </script>
 </body>
 
 </html>
