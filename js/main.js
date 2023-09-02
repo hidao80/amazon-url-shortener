@@ -4,20 +4,19 @@ function urlShorten() {
     const inputUrl = document.getElementById('input-url').value;
     const fields = inputUrl.split('/');
     let shortUrl = '';
-console.log(fields);
+    // console.log(fields);
     if (inputUrl.includes('r.html?')) {
         // for gift voucher url
         shortUrl = decodeURIComponent(inputUrl).split('&').filter(field => field.match(/U=/) !== null)[0];
         shortUrl = shortUrl.slice('U='.length, shortUrl.indexOf('?'));
     } else {
         // Delete query parameters
-        fields.push(fields.slice(-1).pop().replace(/\?.+/, ''));
-
+        fields.push(fields.slice(-1).pop().replace(/\?.+$/, ''));
         shortUrl = fields.filter(field => field.match(/[%=]/) === null).join('/');
-
+        shortUrl = shortUrl.replace(/\/[\d-]+/, '')
         // for product url
-        shortUrl = shortUrl.replace(/gp\/product/, 'dp');
-
+        shortUrl = shortUrl.replace(/gp\/product/, 'd');
+        shortUrl = shortUrl.replace(/\/dp\//, '/d/');
         // for wishlist url
         shortUrl = shortUrl.replace(/(hz|ls)\//g, '');
     }
