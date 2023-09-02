@@ -11,8 +11,9 @@ function urlShorten() {
         shortUrl = shortUrl.slice('U='.length, shortUrl.indexOf('?'));
     } else {
         // Delete query parameters
-        fields.push(fields.slice(-1).pop().replace(/\?.+$/, ''));
-        shortUrl = fields.filter(field => field.match(/[%=]/) === null).join('/');
+        fields.push(fields.slice(-1).pop().replace(/(\?.+$|.+$)/, ''));
+        shortUrl = fields.filter(field => field.match(/([%=]|^$)/) === null).join('/');
+        shortUrl = shortUrl.replace(/:\//, '://');
         shortUrl = shortUrl.replace(/\/[\d-]+/, '')
         // for product url
         shortUrl = shortUrl.replace(/gp\/product/, 'd');
