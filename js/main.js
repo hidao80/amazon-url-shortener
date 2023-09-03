@@ -16,7 +16,7 @@ function urlShorten() {
         if(withoutPrams != productId) {
             fields.push(withoutPrams);
         }
-        shortUrl = fields.filter(field => field.match(/([%=]|^$)/) === null).join('/')
+        shortUrl = fields.filter(field => field.match(/([%=-]|^$)/) === null).join('/')
         // Delete query parameters
         .replace(/(\/[\d-]+|(hz|ls)\/|www\.)/g, "")
         .replace(/(\/gp\/product\/|\/dp\/)/, "/d/")
