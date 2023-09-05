@@ -24,7 +24,7 @@ function urlShorten() {
         .replace(/:\//, '://');
     }
     console.log(shortUrl);
-    shortUrl = shortUrl.replace(/^https:\/\/(www\.)?/, 'https://');
+    shortUrl = shortUrl.replace(/^https:\/\/(www\.)?/, 'https://').replace(".co.jp", ".jp");
     console.log(shortUrl);
 
     // show short url message
