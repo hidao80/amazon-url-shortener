@@ -18,13 +18,13 @@ function urlShorten() {
         }
         shortUrl = fields.filter(field => field.match(/([%=-]|^$)/) === null).join('/')
         // Delete query parameters
-        .replace(/(\/[\d-]+|(hz|ls)\/|www\.)/g, "")
+        .replace(/(\/[\d-]+|(hz|ls)\/|www\.|\.co)/g, "")
         .replace(/(\/gp\/product\/|\/dp\/)/, "/d/")
         // Add the beginning of the url
         .replace(/:\//, '://');
     }
     console.log(shortUrl);
-    shortUrl = shortUrl.replace(/^https:\/\/(www\.)?/, 'https://').replace(/\.co\.jp/, ".jp");
+    shortUrl = shortUrl.replace(/^https:\/\/(www\.)?/, 'https://');
     console.log(shortUrl);
 
     // show short url message
