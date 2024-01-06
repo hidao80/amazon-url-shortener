@@ -4,7 +4,7 @@ function urlShorten() {
     const inputUrl = document.getElementById('input-url').value;
     const fields = inputUrl.split('/');
     let shortUrl = '';
-    // console.log(fields);
+    // console.debug(fields);
     if (inputUrl.includes('r.html?')) {
         // for gift voucher url
         shortUrl = decodeURIComponent(inputUrl).split('&').filter(field => field.match(/U=/) !== null)[0]
@@ -18,14 +18,18 @@ function urlShorten() {
         }
         shortUrl = fields.filter(field => field.match(/([%=-]|^$)/) === null).join('/')
         // Delete query parameters
-        .replace(/(\/[\d-]+|(hz|ls)\/|www\.|\.co)/g, "")
+        .replace(/(\/[\d-]+|(hz|ls)\/|www\.)/g, "")
+        .replace(/\.co\./g, ".") // Replace .co.jp with .jp
         .replace(/(\/gp\/product\/|\/dp\/)/, "/d/")
         // Add the beginning of the url
         .replace(/:\//, '://');
     }
-    console.log(shortUrl);
+    console.debug(shortUrl);
+    const productId = shortUrl.split('/').slice(-1);
+    const country = shortUrl.split('/')[2].split('.').slice(-1) == 'jp' ? '5' : '1';
+    const keepaUrl = 'https://keepa.com/#!product/' + country + '-' + productId;
     shortUrl = shortUrl.replace(/^https:\/\/(www\.)?/, 'https://');
-    console.log(shortUrl);
+    console.debug(shortUrl, keepaUrl);
 
     // show short url message
     const msgSuccess = document.getElementById('shortener-success');
@@ -34,7 +38,7 @@ function urlShorten() {
     msgAlert.classList.add('visually-hidden');
 
     if (shortUrl) {
-        copyToClipboard(shortUrl)
+        copyToClipboard(shortUrl, keepaUrl)
             .then(result => msgSuccess.innerHTML = result);
         msgSuccess.classList.remove('visually-hidden');
     } else {
@@ -42,10 +46,17 @@ function urlShorten() {
     }
 }
 
-async function copyToClipboard(text) {
+/**
+ * Copy text to clipboard
+ * @param {string} text Text to be copied
+ * @param {string} keepaUrl Keepa URL
+ * @returns {Promise<string>} Result message
+ */
+async function copyToClipboard(text, keepaUrl) {
     try {
         await navigator.clipboard.writeText(text)
-        return __.translate('Copied the URL to the clipboard; ') + '<strong>' + text + '</strong>';
+        return __.translate('Copied the URL to the clipboard; ') + '<strong>' + text + '</strong><br>'
+            + __.translate('Keepa URL; ') + '<a href="' + keepaUrl + '" target="_blank">' + keepaUrl + '</a>';
     } catch (error) {
         return __.translate('Could not copy the URL; ') + '<strong>' + text + '</strong>';
     }

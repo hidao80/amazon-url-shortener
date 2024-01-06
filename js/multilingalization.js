@@ -15,7 +15,7 @@
  *
  * @class Multilingualization
  */
- export default class Multilingualization {
+export default class Multilingualization {
     /**
      *  @var dictionaries Multilingual dictionary object
      */
@@ -25,14 +25,16 @@
             "Shorten and copy": `Shorten and copy&nbsp;<i class="fas fa-copy"></i>`,
             "Copied the URL to the clipboard; ": "Copied the URL to the clipboard; ",
             "Could not copy the URL; ": "Could not copy the URL; ",
-            "URL is invalid": "URL is invalid."
+            "URL is invalid": "URL is invalid.",
+            "Keepa URL; ": "Keepa URL; ",
         },
         "ja": {
             "Enter the Amazon URL you would like to shorten": "短縮したいAmazonのURLを入力してください：<ul><li>商品</li><li>ほしいものリスト</li><li>ギフト券</li></ul>",
             "Shorten and copy": `短縮してコピー&nbsp;<i class="fas fa-copy"></i>`,
             "Copied the URL to the clipboard; ": "URLをクリップボードにコピーしました： ",
             "Could not copy the URL; ": "URLをコピーできませんでした：",
-            "URL is invalid": "URLが正しくありません。"
+            "URL is invalid": "URLが正しくありません。",
+            "Keepa URL; ": "KeepaのURL：",
         }
     }
 
