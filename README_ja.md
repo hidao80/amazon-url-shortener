@@ -8,7 +8,7 @@
 
 特別なドメインを使用せずにAmazonの商品URLを短縮するWebアプリケーションです。
 
-![](img/ss01_ja.png)
+![image](https://github.com/hidao80/amazon-url-shortener/assets/8155294/009d9799-45b7-4d5c-9cfd-0a8cc99c636c)
 
 ## ライセンス
 
