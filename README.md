@@ -12,7 +12,7 @@
 
 A web application that shortens Amazon product URLs without using a special domain.
 
-![image](https://github.com/hidao80/amazon-url-shortener/assets/8155294/d262f2d4-9e77-44a5-8150-4d4096fe6460)
+![image](https://github.com/hidao80/amazon-url-shortener/assets/8155294/cd7a125e-f41a-401e-8f3a-4abce91013b0)
 
 ## Licence
 
