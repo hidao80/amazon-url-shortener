@@ -12,7 +12,7 @@
 
 特別なドメインを使用せずにAmazonの商品URLを短縮するWebアプリケーションです。
 
-![image](https://github.com/hidao80/amazon-url-shortener/assets/8155294/009d9799-45b7-4d5c-9cfd-0a8cc99c636c)
+![image](https://github.com/hidao80/amazon-url-shortener/assets/8155294/e5906ecf-ac76-4a85-b422-abfaa4ddc161)
 
 ## ライセンス
 
