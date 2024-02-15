@@ -27,6 +27,7 @@ export default class Multilingualization {
             "Could not copy the URL; ": "Could not copy the URL; ",
             "URL is invalid": "URL is invalid.",
             "Keepa URL; ": "Keepa URL; ",
+            "Sakura checker URL; ": "Sakura checcker URL; ",
         },
         "ja": {
             "Enter the Amazon URL you would like to shorten": "短縮したいAmazonのURLを入力してください：<ul><li>商品</li><li>ほしいものリスト</li><li>ギフト券</li></ul>",
@@ -35,6 +36,7 @@ export default class Multilingualization {
             "Could not copy the URL; ": "URLをコピーできませんでした：",
             "URL is invalid": "URLが正しくありません。",
             "Keepa URL; ": "KeepaのURL：",
+            "Sakura checker URL; ": "サクラチェッカーのURL：",
         }
     }
 
