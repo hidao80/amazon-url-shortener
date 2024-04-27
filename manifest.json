@@ -4,6 +4,7 @@
     "theme_color": "#87ceeb",
     "display": "standalone",
     "scope": "/amazon-url-shortener",
+    "start_url": "/amazon-url-shortener",
     "id": "8f88f62a-8fea-4d0a-99d8-4e682a192974",
     "icons": [
         {
