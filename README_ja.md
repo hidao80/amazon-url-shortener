@@ -2,6 +2,8 @@
 
 [README (English)](README.md)
 
+![PWA](https://img.shields.io/badge/PWA-Yes-4BC51D.svg)
+
 <div style="text-align:center">
     <img src="./img/favicon.png">
 </div>
