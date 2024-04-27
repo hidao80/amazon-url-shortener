@@ -3,7 +3,7 @@
     "background_color": "#fff",
     "theme_color": "#87ceeb",
     "display": "standalone",
-    "scope": "/",
+    "scope": "/amazon-url-shortener",
     "id": "8f88f62a-8fea-4d0a-99d8-4e682a192974",
     "icons": [
         {
