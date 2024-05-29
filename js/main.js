@@ -92,11 +92,12 @@ async function copyToClipboard(text, keepaUrl, sakuraCheckerUrl) {
 }
 
 // disable console outputs.
-// ["log", "warn", "error"].map(method => console[method] = () => {});
+["log", "warn", "error"].map(method => console[method] = () => {});
 
 const $$one = (elem) => document.querySelector(elem);
 const instBtn = $$one("#install");
 
+// Add a button to install the app.
 addEventListener("beforeinstallprompt", (event) => {
     console.debug("beforeinstallprompt: ", event);
     event.preventDefault();
@@ -114,17 +115,21 @@ addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    instBtn.addEventListener("click", () => {
-        if (instBtn.promptEvent) {
-            instBtn.promptEvent.prompt(); // show dialog
-            instBtn.promptEvent.userChoice
-            .then((choiceResult) => {
-                console.debug("User choice: ", choiceResult);
-                instBtn.classList.add("d-none");
-                instBtn.promptEvent = null;
-            });
-        }
-    });
+    // Check if the PWA is already installed and add the install button.
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+        instBtn.classList.remove("d-none");
+        instBtn.addEventListener("click", () => {
+            if (instBtn.promptEvent) {
+                instBtn.promptEvent.prompt(); // show dialog
+                instBtn.promptEvent.userChoice
+                .then((choiceResult) => {
+                    console.debug("User choice: ", choiceResult);
+                    instBtn.classList.add("d-none");
+                    instBtn.promptEvent = null;
+                });
+            }
+        });
+    }
 
     if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("/amazon-url-shortener/sw.js");
