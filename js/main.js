@@ -116,20 +116,20 @@ addEventListener("DOMContentLoaded", () => {
     });
 
     // Check if the PWA is already installed and add the install button.
-    if (!window.matchMedia("(display-mode: standalone)").matches) {
-        const instDiv = $$one("#install-container");
-        instDiv.classList.remove("d-none");
-        instBtn.addEventListener("click", () => {
-            if (instBtn.promptEvent) {
-                instBtn.promptEvent.prompt(); // show dialog
-                instBtn.promptEvent.userChoice.then((choiceResult) => {
-                    console.debug("User choice: ", choiceResult);
-                    instDiv.classList.add("d-none");
-                    instBtn.promptEvent = null;
-                });
-            }
-        });
-    }
+    // if (!window.matchMedia("(display-mode: standalone)").matches) {
+    //     const instDiv = $$one("#install-container");
+    //     instDiv.classList.remove("d-none");
+    //     instBtn.addEventListener("click", () => {
+    //         if (instBtn.promptEvent) {
+    //             instBtn.promptEvent.prompt(); // show dialog
+    //             instBtn.promptEvent.userChoice.then((choiceResult) => {
+    //                 console.debug("User choice: ", choiceResult);
+    //                 instDiv.classList.add("d-none");
+    //                 instBtn.promptEvent = null;
+    //             });
+    //         }
+    //     });
+    // }
 
     if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("/amazon-url-shortener/sw.js");
