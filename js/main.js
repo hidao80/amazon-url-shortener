@@ -127,6 +127,6 @@ addEventListener("DOMContentLoaded", () => {
     });
 
     if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("../sw.js");
+        navigator.serviceWorker.register("/amazon-url-shortener/sw.js");
     }
 });
