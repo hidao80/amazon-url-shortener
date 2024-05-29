@@ -28,6 +28,7 @@ export default class Multilingualization {
             "URL is invalid": "URL is invalid.",
             "Keepa URL; ": "Keepa URL; ",
             "Sakura checker URL; ": "Sakura checcker URL; ",
+            "Install as PWA": "Install as PWA",
         },
         "ja": {
             "Enter the Amazon URL you would like to shorten": "短縮したいAmazonのURLを入力してください：<ul><li>商品</li><li>ほしいものリスト</li><li>ギフト券</li></ul>",
@@ -37,6 +38,7 @@ export default class Multilingualization {
             "URL is invalid": "URLが正しくありません。",
             "Keepa URL; ": "KeepaのURL：",
             "Sakura checker URL; ": "サクラチェッカーのURL：",
+            "Install as PWA": "PWAとしてインストール",
         }
     }
 

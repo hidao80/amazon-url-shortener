@@ -1,7 +1,6 @@
 {
     "name": "Amazon URL Shortener",
     "background_color": "#fff",
-    "theme_color": "#87ceeb",
     "display": "standalone",
     "scope": "/amazon-url-shortener",
     "start_url": "/amazon-url-shortener",
@@ -10,7 +9,7 @@
         {
             "src": "img/favicon.png",
             "type": "image/png",
-            "sizes": "256x256"
+            "sizes": "192x192"
         }
     ]
 }
