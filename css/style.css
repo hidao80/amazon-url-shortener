@@ -2,12 +2,6 @@ body {
     margin: 2rem;
 }
 
-#install {
-    display: fixed;
-    margin-left: 2rem;
-    margin-top: 2rem;
-}
-
 .d-none {
     display: none;
 }

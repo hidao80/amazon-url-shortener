@@ -33,7 +33,9 @@
 </head>
 
 <body>
-    <label for="basic-url"  class="form-label" data-translate="Enter the Amazon URL you would like to shorten">Enter the Amazon product URL you want to shorten.</label>
+    <button id="install" data-translate="Install as PWA" class="d-none">Install as PWA</button>
+
+    <label for="input-url" class="form-label" data-translate="Enter the Amazon URL you would like to shorten">Enter the Amazon product URL you want to shorten.</label>
     <div class="input-group mb-3">
         <input type="search" class="form-control" id="input-url" aria-describedby="basic-addon3" />
         <button class="btn btn-outline-secondary" type="button" id="shortener-btn" data-translate="Shorten and copy">Shorten and copy</button>
@@ -42,8 +44,6 @@
     </div>
     <div class="alert alert-danger visually-hidden" role="alert" id="shortener-danger" data-translate="URL is invalid">
     </div>
-
-    <button id="install" data-translate="Install as PWA" class="d-none">Install as PWA</button>
 </body>
 
 </html>
