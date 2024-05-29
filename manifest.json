@@ -6,9 +6,19 @@
     "id": "8f88f62a-8fea-4d0a-99d8-4e682a192974",
     "icons": [
         {
-            "src": "img/favicon.png",
+            "src": "img/icon72x72.png",
             "type": "image/png",
-            "sizes": "140x140"
+            "sizes": "72x72"
+        },
+        {
+            "src": "img/icon144x144.png",
+            "type": "image/png",
+            "sizes": "144x144"
+        },
+        {
+            "src": "img/icon512x512.png",
+            "type": "image/png",
+            "sizes": "512x512"
         }
     ]
 }
