@@ -91,13 +91,22 @@ async function copyToClipboard(text, keepaUrl, sakuraCheckerUrl) {
     }
 }
 
-window.onload = (e) => {
+const $$one = (elem) => document.querySelector(elem);
+const instBtn = $$one("#install");
+
+window.addEventListener('beforeinstallprompt', event => {
+    console.log("beforeinstallprompt: ", event);
+    event.preventDefault();
+    instBtn.promptEvent = event; //eventを保持しておく
+    instBtn.removeAttribute("hidden"); //要素を表示する
+    return false;
+});
+
+window.addEventListener("DOMContentLoaded", () => {
     __.translateAll();
 
-    document
-        .getElementById("shortener-btn")
-        .addEventListener("click", urlShorten);
-    document.getElementById("input-url").addEventListener("keydown", (e) => {
+    $$one("#shortener-btn").addEventListener("click", urlShorten);
+    $$one("#input-url").addEventListener("keydown", e => {
         if (e.key === "Enter") {
             urlShorten();
         }
@@ -108,18 +117,12 @@ window.onload = (e) => {
         navigator.serviceWorker.register("./sw.js");
     }
 
-    let installPrompt;
-    const installButton = document.getElementById("install");
-    window.addEventListener("beforeinstallprompt", (event) => {
-        event.preventDefault();
-        installPrompt = event;
-        installButton.removeAttribute("hidden");
-    });
-    installButton.addEventListener("click", () => {
-        if (!installPrompt) {
-            return;
+    instBtn.addEventListener("click", async () => {
+        if (instBtn.promptEvent) {
+            instBtn.promptEvent.prompt();  // show dialog
+            await instBtn.promptEvent.userChoice;
+            instBtn.setAttribute("hidden", "");
+            instBtn.promptEvent = null;
         }
-        installPrompt = null;
-        installButton.setAttribute("hidden", "");
     });
-};
+});
