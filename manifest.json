@@ -9,7 +9,12 @@
         {
             "src": "img/favicon.png",
             "type": "image/png",
-            "size": "140x140"
+            "size": "72x72"
+        },
+        {
+            "src": "img/favicon.png",
+            "type": "image/png",
+            "size": "128x128"
         }
     ]
 }
