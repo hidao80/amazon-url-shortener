@@ -91,37 +91,42 @@ async function copyToClipboard(text, keepaUrl, sakuraCheckerUrl) {
     }
 }
 
+// disable console outputs.
+["log", "warn", "error"].map(method => console[method] = () => {});
+
 const $$one = (elem) => document.querySelector(elem);
 const instBtn = $$one("#install");
 
-window.addEventListener("beforeinstallprompt", (event) => {
-    console.log("beforeinstallprompt: ", event);
+addEventListener("beforeinstallprompt", (event) => {
+    console.debug("beforeinstallprompt: ", event);
     event.preventDefault();
     instBtn.promptEvent = event;
-    instBtn.classList.remove("d-none"); // display element.
-    return false;
 });
 
-window.addEventListener("DOMContentLoaded", () => {
+addEventListener("DOMContentLoaded", () => {
     __.translateAll();
 
     $$one("#shortener-btn").addEventListener("click", urlShorten);
+
     $$one("#input-url").addEventListener("keydown", (e) => {
         if (e.key === "Enter") {
             urlShorten();
         }
     });
 
-    if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("./sw.js");
-    }
-
-    instBtn.addEventListener("click", async () => {
+    instBtn.addEventListener("click", () => {
         if (instBtn.promptEvent) {
             instBtn.promptEvent.prompt(); // show dialog
-            await instBtn.promptEvent.userChoice;
-            instBtn.classList.add("d-none");
-            instBtn.promptEvent = null;
+            instBtn.promptEvent.userChoice
+            .then((choiceResult) => {
+                console.debug("User choice: ", choiceResult);
+                instBtn.classList.add("d-none");
+                instBtn.promptEvent = null;
+            });
         }
     });
+
+    if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("../sw.js");
+    }
 });
