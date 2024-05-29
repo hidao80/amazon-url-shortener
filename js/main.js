@@ -94,11 +94,11 @@ async function copyToClipboard(text, keepaUrl, sakuraCheckerUrl) {
 const $$one = (elem) => document.querySelector(elem);
 const instBtn = $$one("#install");
 
-window.addEventListener('beforeinstallprompt', event => {
+window.addEventListener("beforeinstallprompt", (event) => {
     console.log("beforeinstallprompt: ", event);
     event.preventDefault();
-    instBtn.promptEvent = event; //eventを保持しておく
-    instBtn.removeAttribute("hidden"); //要素を表示する
+    instBtn.promptEvent = event;
+    instBtn.classList.remove("d-none"); // display element.
     return false;
 });
 
@@ -106,11 +106,10 @@ window.addEventListener("DOMContentLoaded", () => {
     __.translateAll();
 
     $$one("#shortener-btn").addEventListener("click", urlShorten);
-    $$one("#input-url").addEventListener("keydown", e => {
+    $$one("#input-url").addEventListener("keydown", (e) => {
         if (e.key === "Enter") {
             urlShorten();
         }
-        return false;
     });
 
     if ("serviceWorker" in navigator) {
@@ -119,9 +118,9 @@ window.addEventListener("DOMContentLoaded", () => {
 
     instBtn.addEventListener("click", async () => {
         if (instBtn.promptEvent) {
-            instBtn.promptEvent.prompt();  // show dialog
+            instBtn.promptEvent.prompt(); // show dialog
             await instBtn.promptEvent.userChoice;
-            instBtn.setAttribute("hidden", "");
+            instBtn.classList.add("d-none");
             instBtn.promptEvent = null;
         }
     });

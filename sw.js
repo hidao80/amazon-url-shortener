@@ -10,6 +10,7 @@ const assets = [
     "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css",
     "/amazon-url-shortener/css/style.css",
     "/amazon-url-shortener/js/main.js",
+    "/amazon-url-shortener/js/multilingualization.js",
 ];
 
 /**

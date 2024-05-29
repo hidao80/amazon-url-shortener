@@ -1,20 +1,20 @@
 {
     "name": "Amazon URL Shortener",
-    "background_color": "#fff",
+    "background_color": "#ffffff",
     "display": "standalone",
-    "scope": "/amazon-url-shortener",
-    "start_url": "/amazon-url-shortener",
+    "scope": "/amazon-url-shortener/",
+    "start_url": "/amazon-url-shortener/index.html",
     "id": "8f88f62a-8fea-4d0a-99d8-4e682a192974",
     "icons": [
         {
             "src": "img/favicon.png",
             "type": "image/png",
-            "size": "72x72"
+            "sizes": "72x72"
         },
         {
             "src": "img/favicon.png",
             "type": "image/png",
-            "size": "128x128"
+            "sizes": "128x128"
         }
     ]
 }
