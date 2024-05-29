@@ -1,6 +1,9 @@
 import __ from "./multilingalization.js";
 import { $$one, $$disableConsole } from "./indolence.js";
 
+// disable console outputs.
+$$disableConsole();
+
 function urlShorten() {
     const inputUrl = document.getElementById("input-url").value;
     const fields = inputUrl.split("/");
@@ -92,10 +95,6 @@ async function copyToClipboard(text, keepaUrl, sakuraCheckerUrl) {
     }
 }
 
-// disable console outputs.
-$$disableConsole();
-
-const $$one = (elem) => document.querySelector(elem);
 const instBtn = $$one("#install");
 
 // Add a button to install the app.
