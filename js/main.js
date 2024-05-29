@@ -1,4 +1,5 @@
 import __ from "./multilingalization.js";
+import { $$one, $$disableConsole } from "./indolence.js";
 
 function urlShorten() {
     const inputUrl = document.getElementById("input-url").value;
@@ -92,7 +93,7 @@ async function copyToClipboard(text, keepaUrl, sakuraCheckerUrl) {
 }
 
 // disable console outputs.
-["log", "warn", "error"].map(method => console[method] = () => {});
+$$disableConsole();
 
 const $$one = (elem) => document.querySelector(elem);
 const instBtn = $$one("#install");
