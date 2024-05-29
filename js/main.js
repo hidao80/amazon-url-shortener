@@ -1,4 +1,4 @@
-import __ from "./multilingalization.js";
+import { translate, translateAll } from "./multilingalization.js";
 import { $$one, $$disableConsole } from "./indolence.js";
 
 // disable console outputs.
@@ -68,17 +68,17 @@ async function copyToClipboard(text, keepaUrl, sakuraCheckerUrl) {
     try {
         await navigator.clipboard.writeText(text);
         return (
-            __.translate("Copied the URL to the clipboard; ") +
+            translate("Copied the URL to the clipboard; ") +
             "<strong>" +
             text +
             "</strong><br>" +
-            __.translate("Keepa URL; ") +
+            translate("Keepa URL; ") +
             '<a href="' +
             keepaUrl +
             '" target="_blank">' +
             keepaUrl +
             "</a><br>" +
-            __.translate("Sakura checker URL; ") +
+            translate("Sakura checker URL; ") +
             '<a href="' +
             sakuraCheckerUrl +
             '" target="_blank">' +
@@ -87,7 +87,7 @@ async function copyToClipboard(text, keepaUrl, sakuraCheckerUrl) {
         );
     } catch (error) {
         return (
-            __.translate("Could not copy the URL; ") +
+            translate("Could not copy the URL; ") +
             "<strong>" +
             text +
             "</strong>"
@@ -105,7 +105,7 @@ addEventListener("beforeinstallprompt", (event) => {
 });
 
 addEventListener("DOMContentLoaded", () => {
-    __.translateAll();
+    translateAll();
 
     $$one("#shortener-btn").addEventListener("click", urlShorten);
 
@@ -117,14 +117,15 @@ addEventListener("DOMContentLoaded", () => {
 
     // Check if the PWA is already installed and add the install button.
     if (!window.matchMedia('(display-mode: standalone)').matches) {
-        instBtn.classList.remove("d-none");
+        const instDiv = $$one("#install-container");
+        instDiv.classList.remove("d-none");
         instBtn.addEventListener("click", () => {
             if (instBtn.promptEvent) {
                 instBtn.promptEvent.prompt(); // show dialog
                 instBtn.promptEvent.userChoice
                 .then((choiceResult) => {
                     console.debug("User choice: ", choiceResult);
-                    instBtn.classList.add("d-none");
+                    instDiv.classList.add("d-none");
                     instBtn.promptEvent = null;
                 });
             }
