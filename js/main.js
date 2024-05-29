@@ -116,7 +116,7 @@ addEventListener("DOMContentLoaded", () => {
     });
 
     // Check if the PWA is already installed and add the install button.
-    if (window.matchMedia('(display-mode: standalone)').matches) {
+    if (!window.matchMedia('(display-mode: standalone)').matches) {
         instBtn.classList.remove("d-none");
         instBtn.addEventListener("click", () => {
             if (instBtn.promptEvent) {
