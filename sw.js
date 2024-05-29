@@ -11,6 +11,7 @@ const assets = [
     "/amazon-url-shortener/css/style.css",
     "/amazon-url-shortener/js/main.js",
     "/amazon-url-shortener/js/multilingualization.js",
+    "/amazon-url-shortener/js/indolence.js",
 ];
 
 /**
