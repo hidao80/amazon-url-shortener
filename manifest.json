@@ -1,6 +1,7 @@
 {
     "name": "Amazon URL Shortener",
     "background_color": "#ffffff",
+    "theme_color": "#ffffff",
     "display": "standalone",
     "start_url": "/amazon-url-shortener/index.html",
     "id": "8f88f62a-8fea-4d0a-99d8-4e682a192974",
