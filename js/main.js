@@ -92,7 +92,7 @@ async function copyToClipboard(text, keepaUrl, sakuraCheckerUrl) {
 }
 
 // disable console outputs.
-["log", "warn", "error"].map(method => console[method] = () => {});
+// ["log", "warn", "error"].map(method => console[method] = () => {});
 
 const $$one = (elem) => document.querySelector(elem);
 const instBtn = $$one("#install");
