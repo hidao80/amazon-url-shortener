@@ -3,7 +3,8 @@
 [README 日本語版](README_ja.md)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-![PWA](https://img.shields.io/badge/PWA-Yes-4BC51D.svg)
+![PWA](https://img.shields.io/badge/PWA-ready-4BC51D.svg)
+![Dark theme ready](https://img.shields.io/badge/Dark_theme-ready-blue.svg)
 
 <div style="text-align:center">
     <img src="./img/favicon.png">
