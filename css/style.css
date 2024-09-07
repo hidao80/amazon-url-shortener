@@ -14,6 +14,11 @@ body {
     margin: 2rem;
 }
 
+input[type="text"].form-control, input[type="text"].form-control::placeholder {
+    color: light-dark(var(--light-color) var(--dark-color));
+    background-color: light-dark(var(--dark-color) var(--light-color));
+}
+
 .d-none {
     display: none;
 }
