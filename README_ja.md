@@ -2,9 +2,6 @@
 
 [README (English)](README.md)
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-![PWA](https://img.shields.io/badge/PWA-Yes-4BC51D.svg)
-
 <div style="text-align:center">
     <img src="./img/favicon.png">
 </div>
@@ -12,6 +9,8 @@
 [![MIT license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE.md)
 [![VanillaJS](https://img.shields.io/badge/Framework-VanillaJS-blue.svg)](https://nodejs.org/ja/)
 [![pages-build-deployment](https://github.com/hidao80/amazon-url-shortener/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/hidao80/amazon-url-shortener/actions/workflows/pages/pages-build-deployment)
+![PWA](https://img.shields.io/badge/PWA-ready-4BC51D.svg)
+![Dark theme ready](https://img.shields.io/badge/Dark_theme-ready-blue.svg)
 
 特別なドメインを使用せずにAmazonの商品URLを短縮するWebアプリケーションです。
 
