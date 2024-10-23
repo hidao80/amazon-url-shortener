@@ -4,9 +4,13 @@ import { $$one, $$disableConsole } from "./indolence.js";
 // disable console outputs.
 $$disableConsole();
 
-function urlShorten() {
-    const inputUrl = document.getElementById("input-url").value;
-    const fields = inputUrl.split("/");
+async function urlShorten() {
+    let inputUrl = $$one("#input-url").value;
+    if (!inputUrl.includes("amazon.")) {
+        inputUrl = await expandShortUrl(inputUrl);
+    }
+    const fields = inputUrl.replace(/\?.+$/, "").split("/");
+    const productId = fields.filter(v => v.match(/^[A-Z0-9]+$/))[0];
     let shortUrl = "";
     // console.debug(fields);
     if (inputUrl.includes("r.html?")) {
@@ -16,34 +20,20 @@ function urlShorten() {
             .filter((field) => field.match(/U=/) !== null)[0]
             .slice("U=".length, shortUrl.indexOf("?"));
     } else {
-        // If there is a query parameter, it is not a product ID.
-        const productId = fields.slice(-1).pop();
-        const withoutPrams = productId.replace(/\?.+$/, "");
-        if (withoutPrams != productId) {
-            fields.push(withoutPrams);
-        }
-        shortUrl = fields
-            .filter((field) => field.match(/([%=-]|^$)/) === null)
-            .join("/")
-            // Delete query parameters
-            .replace(/(\/[\d-]+|(hz|ls)\/|www\.)/g, "")
-            .replace(/\.co\./g, ".") // Replace .co.jp with .jp
-            .replace(/(\/gp\/product\/|\/dp\/)/, "/d/")
-            // Add the beginning of the url
-            .replace(/:\//, "://");
+        // #TODO Localization will be done later.
+        const domain = "amazon." + (inputUrl.includes("amazon.co.jp") ? "jp" : "com");
+        shortUrl = `https://${domain}/d/${productId}`;
     }
     console.debug(shortUrl);
-    const productId = shortUrl.split("/").slice(-1);
     const country =
         shortUrl.split("/")[2].split(".").slice(-1) == "jp" ? "5" : "1";
     const keepaUrl = "https://keepa.com/#!product/" + country + "-" + productId;
     const sakuraCheckerUrl = "https://sakura-checker.jp/search/" + productId;
-    shortUrl = shortUrl.replace(/^https:\/\/(www\.)?/, "https://");
     // console.debug(shortUrl, keepaUrl);
 
     // show short url message
-    const msgSuccess = document.getElementById("shortener-success");
-    const msgAlert = document.getElementById("shortener-danger");
+    const msgSuccess = $$one("#shortener-success");
+    const msgAlert = $$one("#shortener-danger");
     msgSuccess.classList.add("visually-hidden");
     msgAlert.classList.add("visually-hidden");
 
@@ -92,6 +82,28 @@ async function copyToClipboard(text, keepaUrl, sakuraCheckerUrl) {
             text +
             "</strong>"
         );
+    }
+}
+
+/**
+ * Expands a shortened URL by sending a HEAD request to the provided short URL.
+ *
+ * @async
+ * @function expandShortUrl
+ * @param {string} shortUrl - The shortened URL to be expanded.
+ * @returns {Promise<string>} A promise that resolves to the expanded URL.
+ * @throws {Error} Throws an error if the fetch operation fails.
+ */
+async function expandShortUrl(shortUrl) {
+    try {
+        const response = await fetch(shortUrl, {
+            method: 'HEAD',
+            redirect: 'follow'
+        });
+        console.log("Redirect destination URL: ", response.url);
+        return response.url;
+    } catch (error) {
+        console.error('An error has occurred: ', error);
     }
 }
 
