@@ -6,9 +6,10 @@ $$disableConsole();
 
 async function urlShorten() {
     let inputUrl = $$one("#input-url").value;
-    if (!inputUrl.includes("amazon.")) {
-        inputUrl = await expandShortUrl(inputUrl);
-    }
+    // if (!inputUrl.includes("amazon.")) {
+    //     inputUrl = await expandShortUrl(inputUrl);
+    //     console.debug(inputUrl)
+    // }
     const fields = inputUrl.replace(/\?.+$/, "").split("/");
     const productId = fields.filter(v => v.match(/^[A-Z0-9]+$/))[0];
     let shortUrl = "";
@@ -98,12 +99,13 @@ async function expandShortUrl(shortUrl) {
     try {
         const response = await fetch(shortUrl, {
             method: 'HEAD',
-            redirect: 'follow'
+            redirect: 'follow',
         });
         console.log("Redirect destination URL: ", response.url);
         return response.url;
     } catch (error) {
         console.error('An error has occurred: ', error);
+        return shortUrl;
     }
 }
 
